@@ -1,22 +1,26 @@
-# Dpm
+[English](README.md) | [简体中文](README.zh-CN.md)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dpm`. To experiment with that code, run `bin/console` for an interactive prompt.
+# DPM
 
-TODO: Delete this and the text above, and describe your gem
+Docker Package Manager, makes using your containers as easy as package managers (`apt`, `yml`, `brew`).
 
 ## Installation
 
-Install the gem and add to the application's Gemfile by executing:
-
-    $ bundle add dpm
-
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install dpm
+```bash
+gem install dpmrb
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```bash
+dpm help                       # Show help
+dpm list                       # docker ps --filter "name=dpm-"
+dpm start mysql                # docker run --name=dpm-mysql -d --rm -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes ...
+dpm stop mysql                 # docker stop dpm-mysql
+dpm status mysql               # docker ps --filter "name=dpm-mysql"
+dpm start elasticsearch:7.10.2 # docker run --name=dpm-elasticsearch-7.10.2 -d --rm -p 9200:9200 -e discovery.type=single-node ...
+dpm start mysql:5.7            # docker run --name=dpm-mysql-5.7 -d --rm -p 3306:3306 -e MYSQL_ALLOW_EMPTY_PASSWORD=yes ...
+```
 
 ## Development
 
@@ -26,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/dpm. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/dpm/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/songhuangcn/dpm. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/songhuangcn/dpm/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -34,4 +38,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Dpm project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/dpm/blob/main/CODE_OF_CONDUCT.md).
+Everyone interacting in the Dpm project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/songhuangcn/dpm/blob/main/CODE_OF_CONDUCT.md).

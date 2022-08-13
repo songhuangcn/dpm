@@ -1,0 +1,7 @@
+run_options:
+  name: "<%= container_name %>"
+  d: true
+  rm: true
+image: ""
+command: ""
+args: {}

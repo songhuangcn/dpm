@@ -1,0 +1,5 @@
+image_name: "docker.elastic.co/elasticsearch/elasticsearch"
+run_options:
+  p: "9200:9200"
+  e: "discovery.type=single-node"
+  v: "<%= DPM::HOME %>/data/<%= package_name %>/<%= package_tag || 'default' %>:/usr/share/elasticsearch/data"

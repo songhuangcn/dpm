@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/dpm"
+
+begin
+  DPM::Runner.call!(ARGV)
+rescue => exception
+  puts "Errors: #{exception.message}"
+  exit 1
+end

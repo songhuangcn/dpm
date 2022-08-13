@@ -1,0 +1,2 @@
+run_options:
+  v: "<%= DPM::HOME %>/data/mysql-5.7:/var/lib/mysql"
