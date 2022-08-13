@@ -110,9 +110,14 @@ module DPM
           option_prefix = "--"
           value_joiner = "="
         end
-        full_value = "#{value_joiner}#{value}" if value != true
 
-        "#{option_prefix}#{key}#{full_value}"
+        if value == true
+          "#{option_prefix}#{key}"
+        elsif value.is_a?(Array)
+          value.map { |v| "#{option_prefix}#{key}#{value_joiner}#{v}" }.join(" ")
+        else
+          "#{option_prefix}#{key}#{value_joiner}#{value}"
+        end
       end
       hash_arr.join(" ")
     end
