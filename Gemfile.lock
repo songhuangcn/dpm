@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dpmrb (0.1.1)
+    dpmrb (0.2.0)
       activesupport (~> 6.x)
 
 GEM
