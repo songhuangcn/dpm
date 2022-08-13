@@ -2,16 +2,17 @@ PATH
   remote: .
   specs:
     dpmrb (0.1.0)
-      activesupport (~> 7.x)
+      activesupport (~> 6.x)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.3.1)
+    activesupport (6.1.6.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+      zeitwerk (~> 2.3)
     ast (2.4.2)
     concurrent-ruby (1.1.10)
     i18n (1.12.0)
@@ -47,9 +48,11 @@ GEM
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.2.0)
+    zeitwerk (2.6.0)
 
 PLATFORMS
   arm64-darwin-21
+  ruby
 
 DEPENDENCIES
   dpmrb!

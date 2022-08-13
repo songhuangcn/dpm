@@ -4,7 +4,7 @@ require_relative "lib/dpm/version"
 
 Gem::Specification.new do |spec|
   spec.name = "dpmrb"
-  spec.version = Dpm::VERSION
+  spec.version = DPM::VERSION
   spec.authors = ["Song Huang"]
   spec.email = ["songhuangcn@gmail.com"]
 
@@ -30,6 +30,5 @@ Gem::Specification.new do |spec|
 
   spec.post_install_message = "Please start with `dpm help`"
 
-  spec.add_dependency "activesupport", "~> 7.x"
-
+  spec.add_dependency "activesupport", "~> 6.x"
 end
