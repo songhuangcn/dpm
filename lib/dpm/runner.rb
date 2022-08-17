@@ -5,47 +5,39 @@ require "erb"
 
 module DPM
   class Runner
-    PACKAGE_COMMANDS = %w[status start stop restart].freeze
-    PACKAGE_REGEX = /\A[\w.\-:]+\z/.freeze
     CONTAINER_NAME_PREFIX = "dpm-"
     BASH_COLOR_GRAY = "\033[0;37m"
     BASH_COLOR_NONE = "\033[0m"
 
-    attr_reader :command, :package
+    attr_accessor :options
 
-    def self.call!(argv)
-      new(argv).call!
+    def self.call!(options)
+      new(options).call!
     end
 
-    def initialize(argv)
-      @command, @package = argv
-      validate_argv!
+    def initialize(options)
+      self.options = options
     end
 
     def call!
-      if docker_command
+      if options.dry_run
+        puts "Dry run:"
+        puts bash_color(docker_command)
+      else
         puts bash_color(docker_command)
         puts ""
         puts `#{docker_command}`
-      else
-        puts help_text
       end
     end
 
     private
-
-    def validate_argv!
-      if PACKAGE_COMMANDS.include?(command) && !PACKAGE_REGEX.match?(package)
-        raise Error, "`package` invalid, valid regex: #{PACKAGE_REGEX}"
-      end
-    end
 
     def bash_color(text)
       "#{BASH_COLOR_GRAY}#{text}#{BASH_COLOR_NONE}"
     end
 
     def docker_command
-      case command
+      case options.command
       when "list"
         %(docker ps --filter "name=#{CONTAINER_NAME_PREFIX}")
       when "status"
@@ -55,31 +47,10 @@ module DPM
       when "stop"
         "docker stop #{container_name}"
       when "restart"
-        "dpm stop #{package} && dpm start #{package}"
+        "dpm stop #{options.package} && dpm start #{options.package}"
+      else
+        raise "Not implemented command: `#{command}`"
       end
-    end
-
-    def help_text
-      <<~EOF
-        Usage: dpm command [PACKAGE]
-
-        Docker Package Manager
-
-        dpm help:
-            Show the help
-        dpm list:
-            List running packages
-        dpm status PACKAGE:
-            Get the status of the package
-        dpm start PACKAGE:
-            Start the package
-        dpm stop PACKAGE:
-            Stop the package
-        dpm restart PACKAGE:
-            Restart the package
-
-        See more at https://github.com/songhuangcn/dpm
-      EOF
     end
 
     def docker_run_params
@@ -147,15 +118,15 @@ module DPM
     end
 
     def package_name
-      @package_name ||= package.split(":")[0]
+      @package_name ||= options.package.split(":")[0]
     end
 
     def package_tag
-      @package_tag ||= package.split(":")[1]
+      @package_tag ||= options.package.split(":")[1]
     end
 
     def container_name
-      @container_name ||= "#{CONTAINER_NAME_PREFIX}#{package.tr(":", "-")}"
+      @container_name ||= "#{CONTAINER_NAME_PREFIX}#{options.package.tr(":", "-")}"
     end
 
     def load_yaml(file_path)
