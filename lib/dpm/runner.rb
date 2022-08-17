@@ -58,15 +58,15 @@ module DPM
     end
 
     def config_run_options
-      process_options(manager_config["run_options"])
+      process_options(package_config["run_options"])
     end
 
     def config_command
-      manager_config["command"]
+      package_config["base"]["command"]
     end
 
     def config_args
-      process_options(manager_config["args"])
+      process_options(package_config["run_args"])
     end
 
     def process_options(hash)
@@ -94,27 +94,34 @@ module DPM
     end
 
     def docker_image
-      image_tag ? "#{image_name}:#{image_tag}" : image_name
+      "#{image_name}:#{image_tag}"
     end
 
     def image_name
-      @image_name ||= manager_config["image_name"] || package_name
+      @image_name ||= package_config["image_name"] || package_name
     end
 
     def image_tag
-      @image_tag ||= manager_config["image_tag"] || package_tag
+      @image_tag ||= package_config["image_tag"] || package_tag
     end
 
-    def manager_config
-      @manager_config ||= begin
-        default_options = load_yaml(File.join(ROOT, "packages", "default.yml"))
-        image_options = load_yaml(File.join(ROOT, "packages", package_name, "default.yml"))
-        tag_options = load_yaml(File.join(ROOT, "packages", package_name, "tag-#{package_tag}.yml"))
-
-        default_options \
-          .deep_merge(image_options) \
-          .deep_merge(tag_options)
+    def package_config
+      @package_config ||= begin
+        config = load_yaml(File.join(ROOT, "packages", "#{package_name}.yml"))
+        version = package_tag.dup
+        version_config = loop do
+          raise Error, "Package tag `#{package_tag}` not support" unless version
+          break config[version] if config[version]
+          version = version.sub!(/\.\d+\z/, "")
+        end
+        default_config.deep_merge(version_config)
       end
+    rescue Errno::ENOENT
+      raise Error, "Package `#{package_name}` not support"
+    end
+
+    def default_config
+      @default_config ||= load_yaml(File.join(ROOT, "config", "package.yml"))
     end
 
     def package_name
@@ -122,7 +129,7 @@ module DPM
     end
 
     def package_tag
-      @package_tag ||= options.package.split(":")[1]
+      @package_tag ||= options.package.split(":")[1] || "latest"
     end
 
     def container_name
@@ -132,11 +139,10 @@ module DPM
     def load_yaml(file_path)
       text = File.read(file_path)
       data = ERB.new(text).result(binding)
-      YAML.safe_load(data).tap do |yaml|
+      yaml = YAML.safe_load(data, aliases: true).tap do |yaml|
         raise Error, "Config need to be a hash yaml: #{file_path}" unless yaml.is_a?(Hash)
       end
-    rescue Errno::ENOENT
-      {}
+      yaml.transform_keys!(&:to_s)
     end
   end
 end

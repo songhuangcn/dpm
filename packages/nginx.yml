@@ -1,0 +1,22 @@
+.base: &base
+  {}
+.run_options: &run_options
+  p: "80:80"
+.run_args: &run_args
+  {}
+
+latest:
+  base:
+    <<: *base
+  run_options:
+    <<: *run_options
+  run_args:
+    <<: *run_args
+
+1:
+  base:
+    <<: *base
+  run_options:
+    <<: *run_options
+  run_args:
+    <<: *run_args

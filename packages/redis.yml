@@ -1,0 +1,38 @@
+.base: &base
+  {}
+.run_options: &run_options
+  p: "6379:6379"
+.run_args: &run_args
+  {}
+
+latest:
+  base:
+    <<: *base
+  run_options:
+    <<: *run_options
+  run_args:
+    <<: *run_args
+
+7:
+  base:
+    <<: *base
+  run_options:
+    <<: *run_options
+  run_args:
+    <<: *run_args
+
+6:
+  base:
+    <<: *base
+  run_options:
+    <<: *run_options
+  run_args:
+    <<: *run_args
+
+5:
+  base:
+    <<: *base
+  run_options:
+    <<: *run_options
+  run_args:
+    <<: *run_args

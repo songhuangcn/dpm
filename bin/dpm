@@ -5,6 +5,6 @@ require_relative "../lib/dpm"
 begin
   DPM.call!(ARGV)
 rescue => exception
-  puts "Error: #{exception.message}"
+  puts "Fatal error: #{exception.message}"
   exit 1
 end

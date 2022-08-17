@@ -16,6 +16,6 @@ module DPM
     options = Options.parse!(argv)
     Runner.call!(options)
   rescue Error => exception
-    puts "Failed: #{exception.message}"
+    puts "Error: #{exception.message}"
   end
 end

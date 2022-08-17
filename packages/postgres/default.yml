@@ -1,4 +1,0 @@
-run_options:
-  p: "5432:5432"
-  e: "POSTGRES_PASSWORD=mysecretpassword"
-  v: "<%= DPM::HOME %>/data/<%= package_name %>/<%= package_tag || 'default' %>:/var/lib/postgressql/data"
