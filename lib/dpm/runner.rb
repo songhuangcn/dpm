@@ -26,6 +26,8 @@ module DPM
         call_docker!
       when "packages"
         call_packages!
+      when "tags"
+        call_tags!
       end
     end
 
@@ -59,6 +61,11 @@ module DPM
     def call_packages!
       packages = Dir.glob(File.join(ROOT, "packages", "*.yml")).map { |file| File.basename(file, ".yml") }
       puts packages
+    end
+
+    def call_tags!
+      tags = package_config_yaml.keys.reject { |key| key.start_with?(".") }
+      puts tags
     end
 
     def bash_color(text)
@@ -119,15 +126,18 @@ module DPM
 
     def package_config
       @package_config ||= begin
-        config = load_yaml(File.join(ROOT, "packages", "#{package_name}.yml"))
         version = package_tag.dup
         version_config = loop do
           raise Error, "Package tag `#{package_tag}` not support" unless version
-          break config[version] if config[version]
+          break package_config_yaml[version] if package_config_yaml[version]
           version = version.sub!(/\.\d+\z/, "")
         end
         default_config.deep_merge(version_config)
       end
+    end
+
+    def package_config_yaml
+      @package_config_yaml ||= load_yaml(File.join(ROOT, "packages", "#{package_name}.yml"))
     rescue Errno::ENOENT
       raise Error, "Package `#{package_name}` not support"
     end

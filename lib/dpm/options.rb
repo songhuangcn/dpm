@@ -2,7 +2,7 @@ require "optparse"
 
 module DPM
   class Options
-    PACKAGE_COMMANDS = %w[status start stop restart].freeze
+    PACKAGE_COMMANDS = %w[tags status start stop restart].freeze
     PACKAGE_REGEX = /\A[\w.\-:]+\z/.freeze
     UNPACKAGE_COMMANDS = %w[list packages].freeze
 
@@ -57,6 +57,7 @@ module DPM
             version                          Show the version
             packages                         List supported packages
             list                             List running packages
+            tags PACKAGE                     List supported tags of a package
             status PACKAGE                   Get the status of a package
             start PACKAGE                    Start a package
             stop PACKAGE                     Stop a package
