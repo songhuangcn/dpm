@@ -4,6 +4,7 @@ module DPM
   class Options
     PACKAGE_COMMANDS = %w[status start stop restart].freeze
     PACKAGE_REGEX = /\A[\w.\-:]+\z/.freeze
+    UNPACKAGE_COMMANDS = %w[list packages].freeze
 
     attr_accessor :argv, :dry_run, :parser, :command, :package
 
@@ -54,6 +55,7 @@ module DPM
         COMMAND:
             help                             Show the help
             version                          Show the version
+            packages                         List supported packages
             list                             List running packages
             status PACKAGE                   Get the status of a package
             start PACKAGE                    Start a package
@@ -78,7 +80,7 @@ module DPM
         raise Error, "Command `#{command}` need a package" if package.blank?
         raise Error, "Package invalid, valid regex: #{PACKAGE_REGEX}" if !PACKAGE_REGEX.match?(package)
       else
-        raise Error, "Unknown command `#{command}`, see `dpm help`"
+        raise Error, "Unknown command `#{command}`, see `dpm help`" unless UNPACKAGE_COMMANDS.include?(command)
       end
     end
   end

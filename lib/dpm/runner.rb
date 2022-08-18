@@ -8,6 +8,7 @@ module DPM
     CONTAINER_NAME_PREFIX = "dpm-"
     BASH_COLOR_GRAY = "\033[0;37m"
     BASH_COLOR_NONE = "\033[0m"
+    DOCKER_COMMANDS = %w[list status start stop restart].freeze
 
     attr_accessor :options
 
@@ -20,24 +21,18 @@ module DPM
     end
 
     def call!
-      if options.dry_run
-        puts "Dry run:"
-        puts bash_color(docker_command)
-      else
-        puts bash_color(docker_command)
-        puts ""
-        puts `#{docker_command}`
+      case options.command
+      when *DOCKER_COMMANDS
+        call_docker!
+      when "packages"
+        call_packages!
       end
     end
 
     private
 
-    def bash_color(text)
-      "#{BASH_COLOR_GRAY}#{text}#{BASH_COLOR_NONE}"
-    end
-
-    def docker_command
-      case options.command
+    def call_docker!
+      docker_command = case options.command
       when "list"
         %(docker ps --filter "name=#{CONTAINER_NAME_PREFIX}")
       when "status"
@@ -51,6 +46,23 @@ module DPM
       else
         raise "Not implemented command: `#{command}`"
       end
+      if options.dry_run
+        puts "Dry run:"
+        puts bash_color(docker_command)
+      else
+        puts bash_color(docker_command)
+        puts ""
+        puts `#{docker_command}`
+      end
+    end
+
+    def call_packages!
+      packages = Dir.glob(File.join(ROOT, "packages", "*.yml")).map { |file| File.basename(file, ".yml") }
+      puts packages
+    end
+
+    def bash_color(text)
+      "#{BASH_COLOR_GRAY}#{text}#{BASH_COLOR_NONE}"
     end
 
     def docker_run_params
