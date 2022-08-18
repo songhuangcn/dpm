@@ -1,7 +1,0 @@
-run_options:
-  p: "3306:3306"
-  e: "MYSQL_ALLOW_EMPTY_PASSWORD=yes"
-  v: "<%= DPM::HOME %>/data/<%= package_name %>/<%= package_tag || 'default' %>:/var/lib/mysql"
-args:
-  character-set-server: "utf8mb4"
-  collation-server: "utf8mb4_unicode_ci"

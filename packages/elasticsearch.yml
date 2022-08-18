@@ -1,0 +1,35 @@
+.base: &base
+  {}
+.run_options: &run_options
+  p:
+    - "9200:9200"
+    - "9300:9300"
+  v: "<%= DPM::HOME %>/data/<%= package_name %>/<%= package_tag || 'default' %>:/usr/share/elasticsearch/data"
+.run_args: &run_args
+  {}
+
+latest:
+  base:
+    <<: *base
+  run_options:
+    <<: *run_options
+  run_args:
+    <<: *run_args
+
+8:
+  base:
+    <<: *base
+  run_options:
+    <<: *run_options
+  run_args:
+    <<: *run_args
+
+7:
+  base:
+    <<: *base
+    image_name: "docker.elastic.co/elasticsearch/elasticsearch"
+  run_options:
+    <<: *run_options
+    e: "discovery.type=single-node"
+  run_args:
+    <<: *run_args
