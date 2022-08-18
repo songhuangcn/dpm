@@ -41,7 +41,7 @@ module DPM
       when "list"
         %(docker ps --filter "name=#{CONTAINER_NAME_PREFIX}")
       when "status"
-        %(docker ps --filter "name=#{container_name}")
+        %(docker ps --filter "name=^/#{container_name}$")
       when "start"
         "docker run #{docker_run_params}"
       when "stop"
