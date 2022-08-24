@@ -8,7 +8,7 @@ module DPM
     CONTAINER_NAME_PREFIX = "dpm-"
     BASH_COLOR_GRAY = "\033[0;37m"
     BASH_COLOR_NONE = "\033[0m"
-    DOCKER_COMMANDS = %w[list status start stop restart].freeze
+    DOCKER_COMMANDS = %w[list status start stop restart cleanup].freeze
 
     attr_accessor :options
 
@@ -45,6 +45,8 @@ module DPM
         "docker stop #{container_name}"
       when "restart"
         "dpm stop #{options.package} && dpm start #{options.package}"
+      when "cleanup"
+        "docker system prune --force"
       else
         raise "Not implemented command: `#{command}`"
       end

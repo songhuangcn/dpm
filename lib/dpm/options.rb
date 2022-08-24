@@ -4,7 +4,7 @@ module DPM
   class Options
     PACKAGE_COMMANDS = %w[tags status start stop restart].freeze
     PACKAGE_REGEX = /\A[\w.\-:]+\z/.freeze
-    UNPACKAGE_COMMANDS = %w[list packages].freeze
+    UNPACKAGE_COMMANDS = %w[list packages cleanup].freeze
 
     attr_accessor :argv, :dry_run, :parser, :command, :package
 
@@ -54,6 +54,7 @@ module DPM
             version                          Show the version
             packages                         List supported packages
             list                             List running packages
+            cleanup                          Cleanup useless data
             tags PACKAGE                     List supported tags of a package
             status PACKAGE                   Get the status of a package
             start PACKAGE                    Start a package
