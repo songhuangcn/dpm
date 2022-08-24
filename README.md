@@ -6,6 +6,11 @@ Docker Package Manager, 让你的 Docker 用起来跟包管理器（`apt`, `yum`
 
 ## 安装
 
+依赖：
+- Docker
+- Ruby >= 2.6
+
+安装命令：
 ```bash
 gem install dpmrb
 ```
@@ -13,11 +18,11 @@ gem install dpmrb
 ## 使用
 
 ```bash
-dpm pacakges                   # List all supported packages
-dpm start mysql                # Start the package `mysql` by the config `packages/mysql.yml`
-dpm stop mysql                 # Start the package `mysql`
-dpm status mysql               # Show the status of the package `mysql`
-dpm help                       # Get help to show all the features
+dpm pacakges                   # 列出所有支持的包
+dpm start mysql                # 通过配置 `packages/mysql.yml` 运行 `mysql` 包
+dpm stop mysql                 # 停止运行 `mysql` 包
+dpm status mysql               # 展示 `mysql` 包的运行状态
+dpm help                       # 展示帮助，查看所有功能
 ```
 
 ## 创建新包
