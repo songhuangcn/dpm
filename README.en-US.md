@@ -12,7 +12,7 @@ gem install dpmrb
 
 ## Usage
 
-``bash
+```bash
 dpm pacakges                   # List all supported packages
 dpm start mysql                # Start the package `mysql` by the config `packages/mysql.yml`
 dpm stop mysql                 # Start the package `mysql`
@@ -23,3 +23,7 @@ dpm help                       # Get help to show all the features
 ## Create Package
 
 *TBD*
+
+## Related Tools
+
+- [Visual Studio Code Plugin](https://marketplace.visualstudio.com/items?itemName=UoooBarry.dpm-vscode)

@@ -23,3 +23,7 @@ dpm help                       # Get help to show all the features
 ## 创建新包
 
 *TBD*
+
+## 相关工具
+
+- [Visual Studio Code 插件](https://marketplace.visualstudio.com/items?itemName=UoooBarry.dpm-vscode)
