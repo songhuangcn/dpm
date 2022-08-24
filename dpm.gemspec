@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["songhuangcn@gmail.com"]
 
   spec.summary = "Docker Package Manager."
-  spec.description = "Makes using your containers as easy as package managers (`apt`, `yml`, `brew`)."
+  spec.description = "Docker Package Manager. Makes using your containers as easy as package managers (`apt`, `yum`, `brew`)."
   spec.homepage = "https://github.com/songhuangcn/dpm"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"

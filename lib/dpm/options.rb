@@ -23,14 +23,11 @@ module DPM
 
         parser.banner = "Usage: dpm [options] [COMMAND] [PACKAGE]"
         parser.separator ""
-        parser.separator "Specific options:"
+        parser.separator "Options:"
 
-        parser.on("-d", "--dry-run", "Don't actually run anything, just print") do |v|
+        parser.on("-d", "--dry-run", "Don't actually run Docker command, just print") do |v|
           self.dry_run = v
         end
-
-        parser.separator ""
-        parser.separator "Common options:"
 
         parser.on_tail("-h", "--help", "Show the help") do
           puts help_text
