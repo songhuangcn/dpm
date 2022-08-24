@@ -139,13 +139,13 @@ module DPM
     end
 
     def package_config_yaml
-      @package_config_yaml ||= load_yaml(File.join(ROOT, "packages", "#{package_name}.yml"))
+      @package_config_yaml ||= load_yaml(File.join("packages", "#{package_name}.yml"))
     rescue Errno::ENOENT
       raise Error, "Package `#{package_name}` not support"
     end
 
     def default_config
-      @default_config ||= load_yaml(File.join(ROOT, "config", "package.yml"))
+      @default_config ||= load_yaml(File.join("config", "package.yml"))
     end
 
     def package_name
@@ -161,7 +161,9 @@ module DPM
     end
 
     def load_yaml(file_path)
-      text = File.read(file_path)
+      user_path = File.join(HOME, file_path)
+      system_path = File.join(ROOT, file_path)
+      text = File.exist?(user_path) ? File.read(user_path) : File.read(system_path)
       data = ERB.new(text).result(binding)
       yaml = YAML.safe_load(data, aliases: true).tap do |yaml|
         raise Error, "Config need to be a hash yaml: #{file_path}" unless yaml.is_a?(Hash)
