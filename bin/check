@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo -e "\n[1] Check Standard..."
+bundle exec standardrb
+
+echo -e "\n[2] Check Test..."
+bundle exec rake test
