@@ -55,11 +55,7 @@ dpm configure PACKAGE
 
 **注意：** 如果 PACKAGE 参数为 `package`，则配置的是 "全局系统包配置" `config/package.yml`，这里的配置会合并到所有包里。
 
-## 相关工具
-
-- [Visual Studio Code 插件](https://marketplace.visualstudio.com/items?itemName=UoooBarry.dpm-vscode)
-
-## 开发调试
+## 开发
 
 ### 搭建环境
 
@@ -73,3 +69,7 @@ bin/setup # 需要 Ruby >= 2.6
 
 - 给所有命令添加 ENV `DEBUG` 会展示详细错误堆栈，帮助定位问题
 - 开发完后，请使用命令 `bin/check` 检查代码规范和测试，提前解决一些 CI 失败的情况
+
+## 推荐工具
+
+- [Visual Studio Code 插件](https://github.com/UoooBarry/vscode-dpm)

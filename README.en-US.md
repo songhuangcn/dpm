@@ -56,10 +56,6 @@ If the package already exists in the "system package configuration", the content
 
 **Note:** If the PACKAGE parameter is `package`, the "Global Package Config" `config/package.yml` is configured, and the configuration here will be merged into all packages.
 
-## Related Tools
-
-- [Visual Studio Code Plugin](https://marketplace.visualstudio.com/items?itemName=UoooBarry.dpm-vscode)
-
 ## Development
 
 ### Setup environment
@@ -74,3 +70,7 @@ bin/setup # Need Ruby >= 2.6
 
 - Adding ENV `DEBUG` to all commands will show detailed error stack to help locate the problem
 - After development, use the command `bin/check` to check code specifications and tests, and resolve some CI failures in advance
+
+## Recommended tools
+
+- [Visual Studio Code Plugin](https://github.com/UoooBarry/vscode-dpm)
