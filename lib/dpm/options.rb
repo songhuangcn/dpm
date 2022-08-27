@@ -6,7 +6,7 @@ module DPM
     PACKAGE_REGEX = /\A[\w.\-:]+\z/.freeze
     UNPACKAGE_COMMANDS = %w[list packages cleanup].freeze
 
-    attr_accessor :argv, :dry_run, :parser, :command, :package
+    attr_accessor :argv, :dry_run, :raw, :parser, :command, :package
 
     def initialize(argv)
       self.argv = argv
@@ -27,6 +27,10 @@ module DPM
 
         parser.on("-d", "--dry-run", "Don't actually run Docker command, just print") do |v|
           self.dry_run = v
+        end
+
+        parser.on("-r", "--raw", "Try to run a package even if it doesn't exist") do |v|
+          self.raw = v
         end
 
         parser.on_tail("-h", "--help", "Show the help") do

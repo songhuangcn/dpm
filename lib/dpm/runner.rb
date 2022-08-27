@@ -150,7 +150,11 @@ module DPM
       @package_config ||= begin
         version = package_tag.dup
         version_config = loop do
-          raise Error, "Package tag `#{package_tag}` not support" unless version
+          if !version
+            break {} if options.raw
+            raise Error, "Package tag `#{package_tag}` not support"
+          end
+
           break package_config_yaml[version] if package_config_yaml[version]
           version = version.sub!(/\.\d+\z/, "")
         end
@@ -161,6 +165,7 @@ module DPM
     def package_config_yaml
       @package_config_yaml ||= load_yaml(File.join("packages", "#{package_name}.yml"))
     rescue Errno::ENOENT
+      return {} if options.raw
       raise Error, "Package `#{package_name}` not support"
     end
 
