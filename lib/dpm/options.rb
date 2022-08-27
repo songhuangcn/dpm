@@ -2,7 +2,7 @@ require "optparse"
 
 module DPM
   class Options
-    PACKAGE_COMMANDS = %w[tags status start stop restart].freeze
+    PACKAGE_COMMANDS = %w[tags status start stop restart configure].freeze
     PACKAGE_REGEX = /\A[\w.\-:]+\z/.freeze
     UNPACKAGE_COMMANDS = %w[list packages cleanup].freeze
 
@@ -60,6 +60,7 @@ module DPM
             start PACKAGE                    Start a package
             stop PACKAGE                     Stop a package
             restart PACKAGE                  Restart a package
+            configure PACKAGE                Configure a package in the user-level, including configure a new package
 
         See more at https://github.com/songhuangcn/dpm
       EOF
