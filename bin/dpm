@@ -5,6 +5,7 @@ require_relative "../lib/dpm"
 begin
   DPM.call!(ARGV)
 rescue => exception
+  raise if ENV["DEBUG"]
   puts "Fatal error: #{exception.message}"
   exit 1
 end

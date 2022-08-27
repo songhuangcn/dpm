@@ -32,3 +32,17 @@ dpm help                       # 展示帮助，查看所有功能
 ## 相关工具
 
 - [Visual Studio Code 插件](https://marketplace.visualstudio.com/items?itemName=UoooBarry.dpm-vscode)
+
+## 开发调试
+
+### 搭建环境
+
+```bash
+git clone git@github.com:songhuangcn/dpm.git
+cd dpm
+bin/setup # 需要 Ruby >= 2.6
+```
+
+### 调试
+
+给所有命令添加 ENV `DEBUG` 会展示详细错误堆栈，帮助定位问题
