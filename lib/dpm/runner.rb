@@ -28,6 +28,8 @@ module DPM
         call_packages!
       when "tags"
         call_tags!
+      when "configure"
+        call_configure!
       end
     end
 
@@ -68,6 +70,24 @@ module DPM
     def call_tags!
       tags = package_config_yaml.keys.reject { |key| key.start_with?(".") }
       puts tags
+    end
+
+    def call_configure!
+      raise Error, "Need set $EDITOR" unless ENV["EDITOR"]
+
+      config_dir = package_name == "package" ? "config" : "packages"
+      user_config = File.join(HOME, config_dir, "#{package_name}.yml")
+      unless File.exist?(user_config)
+        system_config = File.join(ROOT, config_dir, "#{package_name}.yml")
+        init_data = if File.exist?(system_config)
+          File.read(system_config)
+        else
+          File.read(File.join(ROOT, "config", "config.template.yml"))
+        end
+        File.write(user_config, init_data)
+      end
+
+      `#{ENV["EDITOR"]} #{user_config}`
     end
 
     def bash_color(text)
