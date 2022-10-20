@@ -3,7 +3,7 @@
 .run_options: &run_options
   p: "5432:5432"
   e: "POSTGRES_PASSWORD=mysecretpassword"
-  v: "<%= DPM::HOME %>/data/<%= package_name %>/<%= package_tag || 'default' %>:/var/lib/postgressql/data"
+  v: "<%= DPM::HOME %>/data/<%= package_name %>/<%= package_tag || 'default' %>:/var/lib/postgresql/data"
 .run_args: &run_args
   {}
 
