@@ -76,7 +76,11 @@ module DPM
       raise Error, "Need set $EDITOR" unless ENV["EDITOR"]
 
       config_dir = package_name == "package" ? "config" : "packages"
-      user_config = File.join(HOME, config_dir, "#{package_name}.yml")
+      full_config_dir = File.join(HOME, config_dir)
+
+      Dir.mkdir(full_config_dir) unless File.directory?(full_config_dir)
+
+      user_config = File.join(full_config_dir, "#{package_name}.yml")
       unless File.exist?(user_config)
         system_config = File.join(ROOT, config_dir, "#{package_name}.yml")
         init_data = if File.exist?(system_config)
